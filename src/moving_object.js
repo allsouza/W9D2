@@ -34,15 +34,21 @@ MovingObject.prototype.isCollidedWith = function(otherObject){
 }
 
 MovingObject.prototype.collideWith = function(otherObject){
-    this.game.remove(this);
-    // debugger;
+    debugger;
     if(otherObject === this.game.ship){
         // debugger;
+        this.game.remove(this);
         otherObject.relocate();
+    }
+    else if(this === this.game.ship){
+        this.relocate()
+        this.game.remove(otherObject);
     }
     else{
         this.game.remove(otherObject);
+        this.game.remove(this);
     }
+   
 }
 
 module.exports = MovingObject;

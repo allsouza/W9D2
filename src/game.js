@@ -5,7 +5,7 @@ function Game() {
     this.CONSTANTS = {
         DIM_X: 600,
         DIM_Y: 700,
-        NUM_ASTEROIDS: 2
+        NUM_ASTEROIDS: 5000
     }
     this.asteroids = this.addAsteroids();
     this.ship = new Ship([this.CONSTANTS.DIM_X/2, this.CONSTANTS.DIM_Y-300], this);
@@ -49,13 +49,14 @@ Game.prototype.wrap = function(position){
     return position;
 }
 
+//Needed a nested loop to check all the objs against one another, before we were just checking neighbors
 Game.prototype.checkCollisions = function(){
     const objs = this.allObjects();
-    for(let i = 0; i < objs.length -1; i++){
-        // debugger;
-        if(objs[i].isCollidedWith(objs[i+1])) {
-           
-            objs[i].collideWith(objs[i+1]);
+    for(let i = 0; i < objs.length; i++){
+        for(let j=i+1; j<objs.length; j++){
+            if(objs[i].isCollidedWith(objs[j])) {
+                objs[i].collideWith(objs[j]);
+            }
         }
     }
 }
